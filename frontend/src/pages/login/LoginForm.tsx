@@ -42,7 +42,7 @@ const LoginForm: React.FC = () => {
     await loginMutationAsync(data, {
       onSuccess: () => {
         // Redirect to dashboard on successful login
-        navigate("/dashboard");
+        navigate("/");
       },
       onError: () => {
         // Log error message to console on login failure

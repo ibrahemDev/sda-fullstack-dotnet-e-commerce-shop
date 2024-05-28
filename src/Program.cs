@@ -110,10 +110,11 @@ else
         options.AddPolicy(name: "allowOptions",
             builder =>
             {
+
                 builder.WithOrigins(
                   "https://variety-shop.netlify.app/", "https://variety-shop.netlify.app", "https://variety-shop.netlify.app/*"
-                )
-                       .AllowAnyHeader()
+                ).WithMethods("GET", "POST", "DELETE", "PUT", "PATCH")
+                       //.AllowAnyHeader()
                        .AllowAnyMethod();
             });
     });
