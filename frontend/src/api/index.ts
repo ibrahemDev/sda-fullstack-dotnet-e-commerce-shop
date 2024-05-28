@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const isDevelopment = import.meta.env.MODE === 'development'
-let baseURL = 'http://localhost:3000/api'
+let baseURL = 'https://sda-fullstack-dotnet-e-commerce-shop.onrender.com/api'
 
 if (!isDevelopment) {
   // Update this later when you have a working backend server
