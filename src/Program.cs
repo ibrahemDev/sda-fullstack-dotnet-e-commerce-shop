@@ -111,8 +111,8 @@ else
             builder =>
             {
                 builder.WithOrigins(
-                  "https://main--variety-shop.netlify.app"
-                ).AllowAnyOrigin()
+                  "https://variety-shop.netlify.app"
+                )
                        .AllowAnyHeader()
                        .AllowAnyMethod();
             });
