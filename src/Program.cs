@@ -20,7 +20,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 DotNetEnv.Env.Load();
 
-builder.Services.AddCors(options =>
+
+builder.Services.AddCors(options => { });
+/*builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
     {
@@ -28,7 +30,7 @@ builder.Services.AddCors(options =>
                .AllowAnyMethod()
                .AllowAnyHeader();
     });
-});
+});*/
 
 
 /*
