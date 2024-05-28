@@ -20,6 +20,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 DotNetEnv.Env.Load();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 
 /*
 builder.Services.AddCors(options =>
