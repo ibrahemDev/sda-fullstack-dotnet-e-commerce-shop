@@ -18,7 +18,7 @@ var jwtKey = Environment.GetEnvironmentVariable("Jwt_key") ?? throw new InvalidO
 var jwtIssuer = Environment.GetEnvironmentVariable("Jwt_Issuer") ?? throw new InvalidOperationException("JWT Issuer is missing in environment variables.");
 var jwtAudience = Environment.GetEnvironmentVariable("Jwt_Audience") ?? throw new InvalidOperationException("JWT Audience is missing in environment variables.");
 var ProductionDefaultConnection = Environment.GetEnvironmentVariable("DefaultConnection") ?? throw new InvalidOperationException("DefaultConnection is missing in environment variables.");
-var devDefaultConnection = Environment.GetEnvironmentVariable("DefaultConnectionDev") ?? throw new InvalidOperationException("DefaultConnectionDev is missing in environment variables.");
+var devDefaultConnection = Environment.GetEnvironmentVariable("DefaultConnectionDev") ?? "";//throw new InvalidOperationException("DefaultConnectionDev is missing in environment variables.");
 
 
 var Configuration = builder.Configuration;
