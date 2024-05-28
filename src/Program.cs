@@ -13,36 +13,39 @@ var builder = WebApplication.CreateBuilder(args);
 DotNetEnv.Env.Load();
 
 
+
+builder.Services.AddCors(options =>
+   {
+       options.AddPolicy(name: "allowAll",
+           builder =>
+           {
+               builder.AllowAnyOrigin()
+                      .AllowAnyHeader()
+                      .AllowAnyMethod();
+           });
+   });
+/*
 if (!builder.Environment.IsDevelopment())
 {
-    builder.Services.AddCors(options =>
-    {
-        options.AddPolicy(name: "allowAll",
-            builder =>
-            {
-                builder.AllowAnyOrigin()
-                       .AllowAnyHeader()
-                       .AllowAnyMethod();
-            });
-    });
+
 }
 else
 {
-    builder.Services.AddCors(options =>
-    {
-        options.AddPolicy(name: "allowOptions",
-            builder =>
-            {
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "allowOptions",
+        builder =>
+        {
 
-                builder.WithOrigins(
-                  "https://variety-shop.netlify.app/", "https://variety-shop.netlify.app", "https://variety-shop.netlify.app/*"
-                ).WithMethods("GET", "POST", "DELETE", "PUT", "PATCH")
-                       //.AllowAnyHeader()
-                       .AllowAnyMethod();
-            });
-    });
+            builder.WithOrigins(
+              "https://variety-shop.netlify.app/", "https://variety-shop.netlify.app", "https://variety-shop.netlify.app/*"
+            ).WithMethods("GET", "POST", "DELETE", "PUT", "PATCH")
+                   //.AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
 }
-
+*/
 
 
 
