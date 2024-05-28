@@ -90,7 +90,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-if (app.Environment.IsDevelopment())
+if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddCors(options =>
     {
@@ -106,17 +106,17 @@ if (app.Environment.IsDevelopment())
 else
 {
     builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: "allowOptions",
-        builder =>
-        {
-            builder.WithOrigins(
-              "https://main--variety-shop.netlify.app"
-            ).AllowAnyOrigin()
-                   .AllowAnyHeader()
-                   .AllowAnyMethod();
-        });
-});
+    {
+        options.AddPolicy(name: "allowOptions",
+            builder =>
+            {
+                builder.WithOrigins(
+                  "https://main--variety-shop.netlify.app"
+                ).AllowAnyOrigin()
+                       .AllowAnyHeader()
+                       .AllowAnyMethod();
+            });
+    });
 }
 
 
