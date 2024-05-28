@@ -18,6 +18,16 @@ public class AuthController(AppDbContext appDbContext, IPasswordHasher<User> pas
     private readonly AuthSerivce _authService = new(appDbContext, mapper, configuration, passwordHasher);
     private readonly UserService _userService = new(appDbContext, mapper, passwordHasher);
 
+    /*[HttpOptions]
+    public IActionResult HandleOptionsRequest()
+    {
+        Response.Headers.Add("Access-Control-Allow-Origin", "*");
+        Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type,Authorization"); // Include any custom headers
+        Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        return Ok();
+    }*/
+
+
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterDto newUser)
     {
