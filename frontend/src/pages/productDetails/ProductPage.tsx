@@ -37,6 +37,7 @@ import { generateKey } from "@/lib/utils";
 
 // Components 
 import { CartButton } from "../prodducts/components/ProductItem";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 
 
@@ -79,7 +80,7 @@ const ProductDetailss: React.FC<{}> = () => {
   } = useGetProductActions(productId!, !productFromProps);
 
   if (isLoading) {
-    return (<>loading</>);
+    return (<> <div className="flex justify-center"><LoadingSpinner /></div></>);
   }
 
   if (isError) {

@@ -49,6 +49,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import api from "@/api";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 const PAGE_SIZE = 150; // Number of users to display per page
 
 // Define the Zod schema for validating the category form
@@ -222,7 +223,7 @@ export default function CategoriesDashboardPage() {
           <div className="">
             {/* Display loading state while fetching categories */}
             {isLoading ? (
-              <div>Loading Categories...</div>
+              <div className="flex justify-center"><LoadingSpinner /></div>
             ) : (
               <div className="overflow-x-auto">
                 <ScrollArea className="rounded-md border">

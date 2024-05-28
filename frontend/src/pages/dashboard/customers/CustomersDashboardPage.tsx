@@ -32,6 +32,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import api from "@/api";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 const PAGE_SIZE = 150; // Number of users to display per page
 
 
@@ -207,7 +208,7 @@ export default function CustomersDashboardPage() {
           {/* Display loading indicator or user list based on loading state */}
           <div className="">
             {isLoading ? (
-              <div>Loading users...</div>
+              <div className="flex justify-center"><LoadingSpinner /></div>
             ) : (
               <div className="overflow-x-auto">
                 {/* ScrollArea component to enable scrolling for the user list table */}

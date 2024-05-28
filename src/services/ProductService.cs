@@ -34,9 +34,7 @@ public class ProductService(AppDbContext appDbContext)
         }
 
 
-        var totalProductsCount = await q.CountAsync();
-        var skip = (page - 1) * limit;
-        q = q.Skip(skip).Take(limit);
+
 
 
         if (dir.ToLowerInvariant() == "desc")
@@ -75,6 +73,9 @@ public class ProductService(AppDbContext appDbContext)
                     break;
             }
         }
+        var totalProductsCount = await q.CountAsync();
+        var skip = (page - 1) * limit;
+        q = q.Skip(skip).Take(limit);
         IEnumerable<Product> list = await q.ToListAsync();
         list = list.Select(e => Product.Create(e, e.CategoryList?.Select(w => Category.CreateEntity(w))));
         return new PaginationResult<Product>

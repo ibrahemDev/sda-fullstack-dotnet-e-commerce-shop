@@ -15,6 +15,7 @@ import HomeDashboardPage from "./pages/dashboard/home/HomeDashboardPage";
 import CustomersDashboardPage from "./pages/dashboard/customers/CustomersDashboardPage";
 import CategoriesDashboardPage from "./pages/dashboard/catefories/CategoriesDashboardPage";
 import OrdersDashboardPage from "./pages/dashboard/orders/OrdersDashboardPage";
+import { LoadingSpinner } from "./components/LoadingSpinner";
 
 
 /**
@@ -29,7 +30,7 @@ function App() {
 
   // While authenticating, show a loading message
   if (AuthState.isAuthenticating) {
-    return (<>Loading.....</>)
+    return (<LoadingSpinner />)
   }
 
   return (

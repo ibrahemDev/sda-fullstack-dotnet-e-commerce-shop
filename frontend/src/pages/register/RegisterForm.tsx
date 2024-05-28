@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { z } from "zod";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 /**
  * RegisterForm component for user registration.
@@ -152,7 +153,7 @@ const RegisterForm: React.FC = () => {
                     type="submit"
                     disabled={isRegisterLoading}
                 >
-                    {isRegisterLoading ? "Registering..." : "Register"}
+                    {isRegisterLoading ? (<div className="flex justify-center">Registering...<LoadingSpinner /></div>) : "Register"}
                 </Button>
 
                 {/* Display registration error message if applicable */}

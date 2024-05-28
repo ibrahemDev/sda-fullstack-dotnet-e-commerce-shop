@@ -62,6 +62,7 @@ import { queryClient } from "@/main";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import api from "@/api";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 // Define the number of orders to display per page
 const PAGE_SIZE = 10;
@@ -240,7 +241,7 @@ export default function OrdersDashboardPage() {
           <div className="overflow-x-auto">
             {/* Display a loading message while fetching data */}
             {isLoading ? (
-              <p>Loading orders...</p>
+              <div className="flex justify-center"><LoadingSpinner /></div>
             ) : (
               <ScrollArea className="rounded-md border text-left">
                 {/* Display the orders in a table */}

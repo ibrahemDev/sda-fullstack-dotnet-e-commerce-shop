@@ -8,8 +8,14 @@ if (isDevelopment) {
   baseURL = 'http://localhost:3000/api'
 }
 
+
+const api = axios.create({
+  baseURL
+})
+
+
 // Axios interceptor to add JWT to Authorization header
-axios.interceptors.request.use(
+api.interceptors.request.use(
   config => {
     const token = localStorage.getItem('token'); // Get JWT token
     if (token) {
@@ -21,10 +27,6 @@ axios.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
-const api = axios.create({
-  baseURL
-})
 
 // use this to handle errors gracefully
 // api.interceptors.response.use(

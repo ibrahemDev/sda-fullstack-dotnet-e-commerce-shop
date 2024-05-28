@@ -13,6 +13,7 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 // Context & Actions
 import { useGetAllCategoriesActions } from '@/context/categories/actions/useGetAllCategories';
 import { useProductActions } from '@/context/product/actions/ProductActions';
+import { LoadingSpinner } from '@/components/LoadingSpinner';
 
 const ProductsFiltersComponent: React.FC = (): JSX.Element => {
   // State to manage the selected category, initialized as undefined
@@ -70,7 +71,7 @@ const ProductsFiltersComponent: React.FC = (): JSX.Element => {
       {/* Category Selection (Conditional Rendering) */}
       {/* Display the category filter only if data is loaded and there are no errors */}
       {isLoading && error == null ? (
-        null //TODO display a loading indicator here
+        <div className="flex justify-center"><LoadingSpinner /></div>
       ) : (
         <div className="flex flex-col items-start gap-4">
           {/* Category Filter Title */}

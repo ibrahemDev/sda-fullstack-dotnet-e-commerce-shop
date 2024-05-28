@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { z } from "zod";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 /**
  * LoginForm component for user authentication.
@@ -97,7 +98,7 @@ const LoginForm: React.FC = () => {
           type="submit"
           disabled={isLoginLoading}
         >
-          {isLoginLoading ? "Logging in..." : "Login"}
+          {isLoginLoading ? (<div className="flex justify-center">Login...<LoadingSpinner /></div>) : "Login"}
         </Button>
 
         {/* Display login error message if applicable */}
