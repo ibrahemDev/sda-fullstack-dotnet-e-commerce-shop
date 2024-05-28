@@ -7,13 +7,35 @@ using Microsoft.OpenApi.Models;
 using Store.Application.Services;
 using Store.EntityFramework;
 using Store.EntityFramework.Entities;
+using Store.Middleware;
+
+
+
+
+
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 DotNetEnv.Env.Load();
 
 
+/*
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "allowOptions",
+        builder =>
+        {
 
+            builder.WithOrigins(
+              "*"
+            ).WithMethods("GET", "POST", "DELETE", "PUT", "PATCH")
+                   //.AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});*/
+/*
 builder.Services.AddCors(options =>
    {
        options.AddPolicy(name: "allowAll",
@@ -23,7 +45,7 @@ builder.Services.AddCors(options =>
                       .AllowAnyHeader()
                       .AllowAnyMethod();
            });
-   });
+   });*/
 /*
 if (!builder.Environment.IsDevelopment())
 {
@@ -156,6 +178,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
+app.UseMiddleware<AllowAllCorsMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
