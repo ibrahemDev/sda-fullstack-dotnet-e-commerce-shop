@@ -53,7 +53,7 @@ if (builder.Environment.IsDevelopment())
     {
         options.AddPolicy("AllowSpecificOrigins", builder =>
         {
-            builder.WithOrigins("http://localhost:3000") // Add specific origins for your development environment
+            builder.WithOrigins("http://localhost:3000")
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials();

@@ -18,7 +18,7 @@ import { useUserContext } from "../UserContext";
  * @returns {Promise<AxiosResponse>} A promise that resolves to the Axios response.
  */
 const updateUser = async (userId: string, user: UpdateUserDto): Promise<AxiosResponse> => {
-  const response = await api.put<string, AxiosResponse<UserModel, any>, UpdateUserDto>(`/api/users/${userId}`, user, {
+  const response = await api.put<string, AxiosResponse<UserModel, any>, UpdateUserDto>(`/users/${userId}`, user, {
     headers: {
       'Content-Type': 'application/json',
     },

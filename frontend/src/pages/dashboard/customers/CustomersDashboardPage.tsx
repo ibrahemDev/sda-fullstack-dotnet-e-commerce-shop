@@ -31,6 +31,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
+import api from "@/api";
 const PAGE_SIZE = 150; // Number of users to display per page
 
 
@@ -65,7 +66,7 @@ export default function CustomersDashboardPage() {
   const { isLoading, data: usersData } = useQuery({
     queryKey: ['users', searchTerm, currentPage],
     queryFn: async () => {
-      const response = await axios.get<UserModel2<User[]>>(`/api/users?page=${currentPage}&limit=${PAGE_SIZE}&search=${searchTerm}`);
+      const response = await api.get<UserModel2<User[]>>(`/users?page=${currentPage}&limit=${PAGE_SIZE}&search=${searchTerm}`);
       return response.data;
     },
   });
@@ -78,7 +79,7 @@ export default function CustomersDashboardPage() {
    */
   const deleteUserMutation = useMutation({
     mutationFn: async (userId: string) => {
-      await axios.delete(`/api/users/${userId}`);
+      await api.delete(`/users/${userId}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['users', searchTerm, currentPage] });
@@ -88,7 +89,7 @@ export default function CustomersDashboardPage() {
   // Update User Mutation 
   const updateUserMutation = useMutation({
     mutationFn: async (updatedUser: User) => {
-      await axios.put(`/api/users/${updatedUser.userId}`, updatedUser);
+      await api.put(`/users/${updatedUser.userId}`, updatedUser);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['users', searchTerm, currentPage] });

@@ -48,6 +48,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
+import api from "@/api";
 const PAGE_SIZE = 150; // Number of users to display per page
 
 // Define the Zod schema for validating the category form
@@ -69,7 +70,7 @@ export default function CategoriesDashboardPage() {
   // Create a mutation for creating a new category
   const createCategoryMutation = useMutation({
     mutationFn: async (newCategory: CreateOrUpdateCategoryDto) => {
-      await axios.post("/api/categories", newCategory);
+      await api.post("/categories", newCategory);
     },
     onSuccess: () => {
       // Invalidate the cache for the "categories" query after successful creation
@@ -102,8 +103,8 @@ export default function CategoriesDashboardPage() {
   const { isLoading, data: categoriesData } = useQuery({
     queryKey: ["categories", currentPage],
     queryFn: async () => {
-      const response = await axios.get<GetAllCategoriesResponse>(
-        `/api/categories?page=${currentPage}&limit=${PAGE_SIZE}`
+      const response = await api.get<GetAllCategoriesResponse>(
+        `/categories?page=${currentPage}&limit=${PAGE_SIZE}`
       );
       return response.data;
     },
@@ -116,7 +117,7 @@ export default function CategoriesDashboardPage() {
   // Create a mutation for deleting a category
   const deleteCategoryMutation = useMutation({
     mutationFn: async (categoryId: string) => {
-      await axios.delete(`/api/categories/${categoryId}`);
+      await api.delete(`/categories/${categoryId}`);
     },
     onSuccess: () => {
       // Invalidate the cache for the "categories" query after successful deletion
@@ -129,8 +130,8 @@ export default function CategoriesDashboardPage() {
   // Update User Mutation (Assuming you have an API endpoint for updating)
   const updateCategoryMutation = useMutation({
     mutationFn: async ({ updatedCategory, categoryId }: { updatedCategory: CreateOrUpdateCategoryDto, categoryId: string }) => {
-      await axios.put(
-        `/api/categories/${categoryId}`,
+      await api.put(
+        `/categories/${categoryId}`,
         updatedCategory
       );
     },

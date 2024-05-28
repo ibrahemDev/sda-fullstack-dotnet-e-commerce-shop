@@ -10,7 +10,7 @@ import { UserModel } from "../UserType";
  * @returns {Promise<AxiosResponse<UserModel, any>>} A promise that resolves to the Axios response.
  */
 const deleteUser = async (userId: string): Promise<AxiosResponse<UserModel, any>> => {
-  return api.delete(`/api/users/${userId}`);
+  return api.delete(`/users/${userId}`);
 };
 
 /**

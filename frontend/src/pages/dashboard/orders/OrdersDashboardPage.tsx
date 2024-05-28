@@ -61,6 +61,7 @@ import { CiMenuKebab } from "react-icons/ci";
 import { queryClient } from "@/main";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import api from "@/api";
 
 // Define the number of orders to display per page
 const PAGE_SIZE = 10;
@@ -101,8 +102,8 @@ export default function OrdersDashboardPage() {
   const { isLoading, data: ordersData, refetch } = useQuery({
     queryKey: ["orders", currentPage], // Query key for caching
     queryFn: async () => {
-      const response = await axios.get<GetAllOrdersApiResponse>(
-        `/api/orders?page=${currentPage}&limit=${PAGE_SIZE}`
+      const response = await api.get<GetAllOrdersApiResponse>(
+        `/orders?page=${currentPage}&limit=${PAGE_SIZE}`
       );
       return response.data;
     },
@@ -127,7 +128,7 @@ export default function OrdersDashboardPage() {
       updatedOrder: CreateOrderDto;
       orderId: string;
     }) => {
-      await axios.put(`/api/orders/${orderId}`, updatedOrder);
+      await api.put(`/orders/${orderId}`, updatedOrder);
     },
     // Invalidate the cache and perform actions after successful mutation
     onSuccess: () => {
@@ -140,7 +141,7 @@ export default function OrdersDashboardPage() {
   // Mutation for deleting an order
   const deleteOrderMutation = useMutation({
     mutationFn: async (orderId: string) => {
-      await axios.delete(`/api/orders/${orderId}`);
+      await api.delete(`/orders/${orderId}`);
     },
     // Invalidate the cache after successful mutation
     onSuccess: () => {
