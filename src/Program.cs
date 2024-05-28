@@ -111,7 +111,7 @@ else
             builder =>
             {
                 builder.WithOrigins(
-                  "https://variety-shop.netlify.app/", "https://variety-shop.netlify.app"
+                  "https://variety-shop.netlify.app/", "https://variety-shop.netlify.app", "https://variety-shop.netlify.app/*"
                 )
                        .AllowAnyHeader()
                        .AllowAnyMethod();
