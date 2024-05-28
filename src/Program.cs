@@ -7,6 +7,8 @@ using Microsoft.OpenApi.Models;
 using Store.Application.Services;
 using Store.EntityFramework;
 using Store.EntityFramework.Entities;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 DotNetEnv.Env.Load();
@@ -15,10 +17,8 @@ DotNetEnv.Env.Load();
 var jwtKey = Environment.GetEnvironmentVariable("Jwt_key") ?? throw new InvalidOperationException("JWT Key is missing in environment variables.");
 var jwtIssuer = Environment.GetEnvironmentVariable("Jwt_Issuer") ?? throw new InvalidOperationException("JWT Issuer is missing in environment variables.");
 var jwtAudience = Environment.GetEnvironmentVariable("Jwt_Audience") ?? throw new InvalidOperationException("JWT Audience is missing in environment variables.");
-
-
-
-
+var ProductionDefaultConnection = Environment.GetEnvironmentVariable("DefaultConnection") ?? throw new InvalidOperationException("DefaultConnection is missing in environment variables.");
+var devDefaultConnection = Environment.GetEnvironmentVariable("DefaultConnectionDev") ?? throw new InvalidOperationException("DefaultConnectionDev is missing in environment variables.");
 
 
 var Configuration = builder.Configuration;
@@ -42,26 +42,43 @@ builder.Services.AddAuthentication(options =>
         ClockSkew = TimeSpan.Zero
     };
 });
-
-
-
-
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(
-    Environment.GetEnvironmentVariable("DefaultConnection")
+   builder.Environment.IsDevelopment() ? devDefaultConnection : ProductionDefaultConnection
     ));
-builder.Services.AddCors(options =>
+
+
+if (builder.Environment.IsDevelopment())
 {
-    options.AddPolicy(
-        "AllowSpecificOrigins",
-        builder =>
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowSpecificOrigins", builder =>
         {
-            builder.WithOrigins("http://localhost:3000", "https://variety-shop.netlify.app")
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials();
-        }
-    );
-});
+            builder.WithOrigins("http://localhost:3000") // Add specific origins for your development environment
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials();
+        });
+    });
+}
+else
+{
+
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowSpecificOrigins", builder =>
+            {
+                builder.WithOrigins("https://variety-shop.netlify.app", "https://variety-shop.netlify.app/*")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+            }
+        );
+    });
+
+
+}
+
+
 
 
 builder.Services.AddEndpointsApiExplorer();
@@ -110,106 +127,11 @@ builder.Services.AddScoped<CategoriesService>();
 
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddAutoMapper(typeof(Program));
-/*
+
 builder.Services.AddControllersWithViews()
     .AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-);*/
-
-/*builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(builder =>
-    {
-        builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader();
-    });
-});*/
-
-
-/*
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: "allowOptions",
-        builder =>
-        {
-
-            builder.WithOrigins(
-              "*"
-            ).WithMethods("GET", "POST", "DELETE", "PUT", "PATCH")
-                   //.AllowAnyHeader()
-                   .AllowAnyMethod();
-        });
-});*/
-/*
-builder.Services.AddCors(options =>
-   {
-       options.AddPolicy(name: "allowAll",
-           builder =>
-           {
-               builder.AllowAnyOrigin()
-                      .AllowAnyHeader()
-                      .AllowAnyMethod();
-           });
-   });*/
-/*
-if (!builder.Environment.IsDevelopment())
-{
-
-}
-else
-{
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: "allowOptions",
-        builder =>
-        {
-
-            builder.WithOrigins(
-              "https://variety-shop.netlify.app/", "https://variety-shop.netlify.app", "https://variety-shop.netlify.app/*"
-            ).WithMethods("GET", "POST", "DELETE", "PUT", "PATCH")
-                   //.AllowAnyHeader()
-                   .AllowAnyMethod();
-        });
-});
-}
-*/
-
-
-
-
-
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: "allowOptions",
-        builder =>
-        {
-            builder.WithOrigins(
-              "http://localhost:3000"
-            )
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-        });
-});
-
-
-*/
-
+);
 
 
 var app = builder.Build();
