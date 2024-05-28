@@ -8,18 +8,26 @@ using Store.Dtos;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Store.Helpers.Enums;
 
 namespace Store.API.Controllers;
 [ApiController]
 [Route("/api/auth")]
 public class AuthController(AppDbContext appDbContext, IPasswordHasher<User> passwordHasher, IMapper mapper, IConfiguration configuration) : ControllerBase
 {
-    private readonly AuthSerivce _authService = new (appDbContext, mapper, configuration, passwordHasher);
-    private readonly UserService _userService = new (appDbContext, mapper, passwordHasher);
+    private readonly AuthSerivce _authService = new(appDbContext, mapper, configuration, passwordHasher);
+    private readonly UserService _userService = new(appDbContext, mapper, passwordHasher);
 
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterDto newUser)
     {
+
+
+        var userIdString = _authService.Authenticate(User.FindFirst(ClaimTypes.NameIdentifier)?.Value, UserRole.Admin);
+        if (userIdString != null && newUser.Role == 1)
+        {
+            return Unauthorized(new BaseResponse<string>(false, userIdString));
+        }
         UserDto? createdUser = await _userService.CreateUser(newUser);
         return Ok(new BaseResponse<UserDto>(createdUser, true));
     }
@@ -36,6 +44,9 @@ public class AuthController(AppDbContext appDbContext, IPasswordHasher<User> pas
     [HttpPost("reset-password")]
     public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)
     {
+
+
+
         var userLoggedIn = await _authService.ResetPassword(resetPasswordDto);
         if (userLoggedIn is null) return BadRequest(new BaseResponse<UserDto>(false, "Something went wrong!"));
 
