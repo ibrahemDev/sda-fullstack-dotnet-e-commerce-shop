@@ -1,0 +1,8 @@
+.vscode
+.DS_Store
+bin
+obj
+*.http
+.mono
+appsettings.json
+.env

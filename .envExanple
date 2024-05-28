@@ -1,0 +1,4 @@
+DefaultConnection=Server=localhost;Port=5432;Database=backend-projectt;Username=postgres;Password=postgres;
+Jwt_key=secritKey
+Jwt_Issuer=localhost:5125
+Jwt_Audience=localhost:5125
