@@ -104,6 +104,7 @@ public class ProductService(AppDbContext appDbContext)
             Price = newProduct.Price,
             Stock = newProduct.Stock,
             Description = newProduct.Description,
+            Image = newProduct.Image
         };
 
         await _appDbContext.Products.AddAsync(product);
@@ -121,6 +122,7 @@ public class ProductService(AppDbContext appDbContext)
         p.Price = updateProduct.Price;
         p.Stock = updateProduct.Stock;
         p.Description = updateProduct.Description;
+        p.Image = updateProduct.Image;
 
         await _appDbContext.SaveChangesAsync();
         return await Task.FromResult(p);

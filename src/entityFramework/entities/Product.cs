@@ -11,6 +11,8 @@ public class Product
     public required int Stock { get; set; }
     public string? Description { get; set; }
 
+    public string? Image { get; set; }
+
     // public List<Category>? CategoryEntityList { get; set; }
     public IEnumerable<Category>? CategoryList { get; set; }
     public IEnumerable<ProductCategory>? ProductCategoryList { get; set; }
@@ -24,8 +26,10 @@ public class Product
             Description = p.Description,
             Price = p.Price,
             Stock = p.Stock,
+            Image = p.Image,
             CategoryList = CategoryList,
             ProductCategoryList = ProductCategoryList
+
         };
     }
 }

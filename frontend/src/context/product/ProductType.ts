@@ -25,9 +25,9 @@ export interface Category {
 
   /**
    * List of products associated with this category. (Ideally should be Product[])
-   * @deprecated
    */
   productEntityList?: any;
+
 }
 
 /**
@@ -69,6 +69,8 @@ export interface Product {
    * @deprecated 
    */
   productCategoryList?: any;
+
+  image?: string
 }
 
 /**
@@ -177,7 +179,13 @@ export type CreateProductDto = {
   description: string;
 
   /**
+   * URL of the product image
+   */
+  image: string
+
+  /**
    * List of categories this product belongs to.
    */
   categoryList: CreateCategoryDto[];
+
 };

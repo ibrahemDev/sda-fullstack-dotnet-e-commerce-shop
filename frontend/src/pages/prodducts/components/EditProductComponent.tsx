@@ -136,13 +136,14 @@ const formSchema = z.object({
     message: "Name must be at least 2 characters.",
   }),
 
-  price: z.number().min(1, {
+  price: z.number().min(0.01, {
     message: "Stock must be greater than or equal to 0",
   }),
   stock: z.number().min(0, {
     message: "Stock must be greater than or equal to 0",
   }),
   description: z.string().min(10),
+  image: z.string()
 
 });
 
@@ -165,6 +166,7 @@ export const EditProductModel: React.FC<{}> = ({ }) => {
       price: 0,
       stock: 0,
       description: "",
+      image: ""
       //categoryList: []
     },
   });
@@ -180,6 +182,7 @@ export const EditProductModel: React.FC<{}> = ({ }) => {
       form.setValue("price", editProvider.selectedItem!.price)
       form.setValue("stock", editProvider.selectedItem!.stock)
       form.setValue("description", editProvider.selectedItem!.description || "")
+      form.setValue("image", editProvider.selectedItem!.image || "")
     } else {
       // Otherwise, close the dialog and reset the form.
       editProvider.setIsDialogOpen(false);
@@ -240,6 +243,7 @@ export const EditProductModel: React.FC<{}> = ({ }) => {
                         <Input
                           placeholder="Product Price"
                           type="number"
+                          step="any"
                           {...register('price', { valueAsNumber: true })}
                         />
                       </FormControl>
@@ -280,6 +284,21 @@ export const EditProductModel: React.FC<{}> = ({ }) => {
                           placeholder="Product Description"
                           {...field}
                         />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* image Input */}
+                <FormField
+                  control={form.control}
+                  name="image"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>image</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Product image" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

@@ -142,12 +142,23 @@ const ProductItemComponent: React.FC<{ product: Product, isAdminMode?: boolean }
   const isAdminMode = _isAdminMode || false;
   const navigate = useNavigate();
   const { token, isLoggedIn, isAdmin, userId, logout, user } = useAuthenticationActions();
+  const [imageLoaded, setImageLoaded] = useState(true);
 
+  const handleImageError = () => {
+    setImageLoaded(false);
+  };
   return (
     <div className="flex lg:flex-row xl:flex-row md:flex-row flex-col items-center   gap-6 p-4 border rounded-lg shadow-sm dark:border-gray-800">
-      <img src={`https://placehold.co/600x600/EEE/31343C?font=lora&text=${product.name}`}
+      <img
+        src={
+          imageLoaded ?
+            (product.image || `https://placehold.co/600x600/EEE/31343C?font=lora&text=${product.name}`)
+            : `https://via.placeholder.com/600x600?text=Image+Not+Available`
+        }
         alt={product.name}
+        onError={handleImageError}
         className="w-48 h-48 rounded-lg object-cover"
+        loading="lazy"
       />
       <div className=" flex flex-col items-start w-full gap-2 justify-start">
 

@@ -31,13 +31,15 @@ const formSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
   }),
-  price: z.number().min(1, {
+  price: z.number().min(0.01, {
     message: "Stock must be greater than or equal to 0",
   }),
   stock: z.number().min(0, {
     message: "Stock must be greater than or equal to 0",
   }),
   description: z.string().min(10),
+  image: z.string(),
+
 });
 
 /**
@@ -60,6 +62,7 @@ export const AddProductModel: React.FC<{}> = ({ }) => {
       price: 0,
       stock: 0,
       description: "",
+      image: ""
     },
   });
 
@@ -130,6 +133,7 @@ export const AddProductModel: React.FC<{}> = ({ }) => {
                         <Input
                           placeholder="Product Price"
                           type="number"
+                          step="any"
                           {...register("price", { valueAsNumber: true })}
                         />
                       </FormControl>
@@ -169,6 +173,21 @@ export const AddProductModel: React.FC<{}> = ({ }) => {
                           placeholder="Product Description"
                           {...field}
                         />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Form field for the product image */}
+                <FormField
+                  control={form.control}
+                  name="image"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Image</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Product Image" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

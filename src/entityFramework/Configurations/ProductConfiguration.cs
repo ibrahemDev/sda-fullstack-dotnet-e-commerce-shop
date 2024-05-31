@@ -28,6 +28,8 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(c => c.Description).HasColumnName("description");
         builder.Property(c => c.Price).HasColumnName("price").IsRequired();
         builder.Property(c => c.Stock).HasColumnName("stock").IsRequired().HasDefaultValue(0).ValueGeneratedOnAdd();
+        builder.Property(c => c.Image).HasColumnName("image").IsRequired().HasDefaultValue(0).ValueGeneratedOnAdd();
+
 
         builder.HasIndex(u => u.ProductId).IsUnique();
 

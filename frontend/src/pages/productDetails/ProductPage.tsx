@@ -95,7 +95,8 @@ const ProductDetailss: React.FC<{}> = () => {
         {/* Product Images */}
         <div>
           <img
-            src="https://placehold.co/600x600"
+
+            src={product.image ? product.image : `https://placehold.co/600x600/EEE/31343C?font=lora&text=${product.name}`}
             alt={product.name}
             className="w-full h-auto rounded-lg shadow-lg"
           />

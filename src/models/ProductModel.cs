@@ -26,5 +26,9 @@ public class ProductModel
     [MinLength(10, ErrorMessage = "Description must be at least 10 characters long.")]
     [MaxLength(500, ErrorMessage = "Description can be at most 500 characters long.")]
     public string? Description { get; set; }
+
+    [MinLength(1, ErrorMessage = "Description must be at least 10 characters long.")]
+    [MaxLength(500, ErrorMessage = "Description can be at most 500 characters long.")]
+    public string? Image { get; set; }
     public List<CategoryModel>? CategoryList { get; set; }
 }

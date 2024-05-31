@@ -12,8 +12,8 @@ using Store.EntityFramework;
 namespace Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240528022042_Initial")]
-    partial class Initial
+    [Migration("20240529213959_product_image")]
+    partial class product_image
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -282,6 +282,13 @@ namespace Backend.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text")
                         .HasColumnName("description");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text")
+                        .HasDefaultValue("0")
+                        .HasColumnName("image");
 
                     b.Property<string>("Name")
                         .IsRequired()
